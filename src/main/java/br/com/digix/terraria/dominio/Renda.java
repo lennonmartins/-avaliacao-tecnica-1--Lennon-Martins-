@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 public class Renda implements Id{
     private double rendaMensal;
     private long id;
-    private double rendaLimite = 1500;
     
     public Renda(double rendaMensal){
         this.rendaMensal = rendaMensal;

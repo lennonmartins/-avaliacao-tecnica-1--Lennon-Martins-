@@ -17,9 +17,7 @@ public abstract class Pessoa implements Id {
     }
 
     private void validaNome(String nome) throws NomeInvalidException{
-        if(nome == null || nome == ""){
-            throw new NomeInvalidException();
-        }
+        if(nome == null || nome == "") throw new NomeInvalidException();
     }
 
     protected String getNome(){
