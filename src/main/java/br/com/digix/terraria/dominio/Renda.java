@@ -12,8 +12,7 @@ public class Renda implements Id{
     private long id;
     private double rendaLimite = 1500;
     
-    public Renda(double rendaMensal) throws RendaInvalidaException {
-        validaRenda(rendaMensal);
+    public Renda(double rendaMensal){
         this.rendaMensal = rendaMensal;
     }
 
@@ -22,9 +21,4 @@ public class Renda implements Id{
         return this.id;
     }
 
-    private void validaRenda(double renda) throws RendaInvalidaException{
-        if(renda > rendaLimite){
-            throw new RendaInvalidaException();
-        }
-    }
 }

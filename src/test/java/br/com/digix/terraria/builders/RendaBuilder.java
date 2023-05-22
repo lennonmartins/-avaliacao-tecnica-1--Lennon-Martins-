@@ -1,7 +1,6 @@
 package br.com.digix.terraria.builders;
 
 import br.com.digix.terraria.dominio.Renda;
-import br.com.digix.terraria.dominio.RendaInvalidaException;
 
 public class RendaBuilder {
     private double rendaMensal;
@@ -10,7 +9,7 @@ public class RendaBuilder {
         this.rendaMensal = 900;
     }
 
-    public Renda criar() throws RendaInvalidaException {
+    public Renda criar() {
         return new Renda(rendaMensal);
     }
 
