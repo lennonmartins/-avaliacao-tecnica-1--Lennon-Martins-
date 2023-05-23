@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+import br.com.digix.terraria.dominio.exceptions.DataDeNascimentoInvalid;
+import br.com.digix.terraria.dominio.exceptions.NomeInvalidException;
+
 @Entity
 public class Dependente extends Pessoa {
 

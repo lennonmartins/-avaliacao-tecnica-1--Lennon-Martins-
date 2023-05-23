@@ -2,6 +2,8 @@ package br.com.digix.terraria.dominio;
 
 import javax.persistence.Entity;
 
+import br.com.digix.terraria.dominio.exceptions.NomeInvalidException;
+
 @Entity
 public class Responsavel extends Pessoa {
     

@@ -2,9 +2,9 @@ package br.com.digix.terraria.builders;
 
 import java.time.LocalDate;
 
-import br.com.digix.terraria.dominio.DataDeNascimentoInvalid;
 import br.com.digix.terraria.dominio.Dependente;
-import br.com.digix.terraria.dominio.NomeInvalidException;
+import br.com.digix.terraria.dominio.exceptions.DataDeNascimentoInvalid;
+import br.com.digix.terraria.dominio.exceptions.NomeInvalidException;
 
 public class DependenteBuilder {
 

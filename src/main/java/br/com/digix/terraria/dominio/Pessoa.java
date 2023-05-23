@@ -2,6 +2,8 @@ package br.com.digix.terraria.dominio;
 
 import javax.persistence.Column;
 
+import br.com.digix.terraria.dominio.exceptions.NomeInvalidException;
+
 
 public abstract class Pessoa implements Id {
     

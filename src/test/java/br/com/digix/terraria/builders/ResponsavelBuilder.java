@@ -1,7 +1,7 @@
 package br.com.digix.terraria.builders;
 
-import br.com.digix.terraria.dominio.NomeInvalidException;
 import br.com.digix.terraria.dominio.Responsavel;
+import br.com.digix.terraria.dominio.exceptions.NomeInvalidException;
 
 public class ResponsavelBuilder {
     private String nome;

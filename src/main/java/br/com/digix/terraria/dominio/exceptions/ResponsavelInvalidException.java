@@ -1,4 +1,4 @@
-package br.com.digix.terraria.dominio;
+package br.com.digix.terraria.dominio.exceptions;
 
 public class ResponsavelInvalidException extends Exception{
     public ResponsavelInvalidException(){

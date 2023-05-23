@@ -14,13 +14,20 @@ import br.com.digix.terraria.builders.DependenteBuilder;
 import br.com.digix.terraria.builders.FamiliaBuilder;
 import br.com.digix.terraria.builders.RendaBuilder;
 import br.com.digix.terraria.builders.ResponsavelBuilder;
+import br.com.digix.terraria.dominio.exceptions.ConjugeInvalidException;
+import br.com.digix.terraria.dominio.exceptions.DataDeNascimentoInvalid;
+import br.com.digix.terraria.dominio.exceptions.DependentesInvalidException;
+import br.com.digix.terraria.dominio.exceptions.NomeInvalidException;
+import br.com.digix.terraria.dominio.exceptions.ResponsavelInvalidException;
 
 @SpringBootTest
 public class FamiliaTest {
-
+    
+   
   @Test
   void deve_criar_uma_familia() throws NomeInvalidException, DataDeNascimentoInvalid, ResponsavelInvalidException,
       ConjugeInvalidException, DependentesInvalidException {
+    int pontuacao = 0;
     String nomeResponsavelEsperado = "Lennon";
     Responsavel responsavel = new ResponsavelBuilder().comNome(nomeResponsavelEsperado).criar();
     String nomeConjugeEsperado = "Miguel";
@@ -30,7 +37,7 @@ public class FamiliaTest {
     List<Dependente> dependentes = new ArrayList<>();
     dependentes.add(new DependenteBuilder().criar());
 
-    Familia familia = new Familia(conjuge, responsavel, dependentes, rendaMensal);
+    Familia familia = new Familia(conjuge, responsavel, dependentes, rendaMensal, pontuacao);
 
     assertThat(familia.getResponsavel().getNome()).isEqualTo(nomeResponsavelEsperado);
     assertThat(familia.getConjuge().getNome()).isEqualTo(nomeConjugeEsperado);
@@ -53,6 +60,25 @@ public class FamiliaTest {
   }
 
   @Test
+  void deve_cadastra_uma_familia_sem_dependentes() throws ResponsavelInvalidException, ConjugeInvalidException, NomeInvalidException, DependentesInvalidException{
+
+    Familia familia = new FamiliaBuilder()
+        .criar(); 
+
+      assertThat(familia.getDependentes().size()).isZero();
+  }
+
+//   @Test
+//   void deve_cadastra_uma_familia_com_dependentes_nulos() throws ResponsavelInvalidException, ConjugeInvalidException, NomeInvalidException, DependentesInvalidException{
+
+//     Familia familia = new FamiliaBuilder()
+//         .comDependente(null)
+//         .criar(); 
+
+//       assertThat(familia.getDependentes().size()).isZero();
+//   }
+
+  @Test
   void nao_deve_cadastrar_uma_familia_sem_responsavel() {
     Responsavel responsavelInvalido = null;
 
@@ -72,19 +98,6 @@ public class FamiliaTest {
         () -> {
           new FamiliaBuilder()
               .comConjuge(conjugeInvalido)
-              .criar();
-        });
-  }
-
-  @Test
-  void nao_deve_cadastrar_uma_familia_sem_dependentes() {
-    // List <Dependente> dependentes = new ArrayList<>();
-    Dependente dependente = null;
-
-    assertThrows(DependentesInvalidException.class,
-        () -> {
-          new FamiliaBuilder()
-              .comDependente(dependente)
               .criar();
         });
   }

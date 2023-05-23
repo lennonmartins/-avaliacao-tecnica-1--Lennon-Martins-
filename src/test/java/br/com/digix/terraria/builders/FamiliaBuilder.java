@@ -4,26 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.digix.terraria.dominio.Conjuge;
-import br.com.digix.terraria.dominio.ConjugeInvalidException;
 import br.com.digix.terraria.dominio.Dependente;
-import br.com.digix.terraria.dominio.DependentesInvalidException;
 import br.com.digix.terraria.dominio.Familia;
-import br.com.digix.terraria.dominio.NomeInvalidException;
 import br.com.digix.terraria.dominio.Renda;
 import br.com.digix.terraria.dominio.Responsavel;
-import br.com.digix.terraria.dominio.ResponsavelInvalidException;
+import br.com.digix.terraria.dominio.exceptions.ConjugeInvalidException;
+import br.com.digix.terraria.dominio.exceptions.DependentesInvalidException;
+import br.com.digix.terraria.dominio.exceptions.NomeInvalidException;
+import br.com.digix.terraria.dominio.exceptions.ResponsavelInvalidException;
 
 public class FamiliaBuilder {
     private Conjuge conjuge;
     private Responsavel responsavel;
     private List<Dependente> dependentes;
     private Renda rendaMensal;
+    private int pontuacao;
     
     public FamiliaBuilder() throws NomeInvalidException {
         this.conjuge = new ConjugeBuilder().criar();
         this.responsavel = new ResponsavelBuilder().criar();
         this.dependentes = new ArrayList<>();
         this.rendaMensal = new RendaBuilder().criar();
+        this.pontuacao = 0;
     }
 
     public FamiliaBuilder comResponsavel(Responsavel responsavel) {
@@ -32,7 +34,7 @@ public class FamiliaBuilder {
     }
 
     public Familia criar() throws ResponsavelInvalidException, ConjugeInvalidException, DependentesInvalidException {
-        return new Familia(conjuge, responsavel, dependentes, rendaMensal);
+        return new Familia(conjuge, responsavel, dependentes, rendaMensal, pontuacao);
     }
 
     public FamiliaBuilder comDependente(Dependente dependente) {
@@ -42,6 +44,11 @@ public class FamiliaBuilder {
 
     public FamiliaBuilder comConjuge(Conjuge conjuge) {
         this.conjuge = conjuge;
+        return this;
+    }
+
+    public FamiliaBuilder comPontos(int pontos) {
+        this.pontuacao = pontos;
         return this;
     }
 

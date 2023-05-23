@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import br.com.digix.terraria.builders.ConjugeBuilder;
+import br.com.digix.terraria.dominio.exceptions.NomeInvalidException;
 
 @SpringBootTest
 public class ConjugeTest {

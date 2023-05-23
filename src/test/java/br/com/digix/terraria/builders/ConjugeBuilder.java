@@ -1,7 +1,7 @@
 package br.com.digix.terraria.builders;
 
 import br.com.digix.terraria.dominio.Conjuge;
-import br.com.digix.terraria.dominio.NomeInvalidException;
+import br.com.digix.terraria.dominio.exceptions.NomeInvalidException;
 
 public class ConjugeBuilder {
     private String nome;

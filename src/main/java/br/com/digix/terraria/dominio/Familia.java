@@ -2,6 +2,10 @@ package br.com.digix.terraria.dominio;
 
 import java.util.List;
 
+import br.com.digix.terraria.dominio.exceptions.ConjugeInvalidException;
+import br.com.digix.terraria.dominio.exceptions.DependentesInvalidException;
+import br.com.digix.terraria.dominio.exceptions.ResponsavelInvalidException;
+
 public class Familia implements Id{
     private long id;
     private int pontuacao;
@@ -10,20 +14,14 @@ public class Familia implements Id{
     private List<Dependente> dependentes;
     private Renda rendaMensal;
 
-    public Familia(Conjuge conjuge, Responsavel responsavel, List<Dependente> dependentes, Renda renda) throws ResponsavelInvalidException, ConjugeInvalidException, DependentesInvalidException {
+    public Familia(Conjuge conjuge, Responsavel responsavel, List<Dependente> dependentes, Renda renda, int pontuacao) throws ResponsavelInvalidException, ConjugeInvalidException, DependentesInvalidException {
         validaResponsavel(responsavel);
         validaConjuge(conjuge);
-        validaDependente(dependentes);
         this.conjuge = conjuge;
         this.responsavel = responsavel;
         this.dependentes = dependentes;
         this.rendaMensal = renda;
-    }
-
-    private void validaDependente(List<Dependente> dependentes) throws DependentesInvalidException {
-        if(dependentes.isEmpty() || dependentes.contains(null)){
-            throw new DependentesInvalidException();
-        }
+        this.pontuacao = pontuacao;
     }
 
     private void validaConjuge(Conjuge conjuge) throws ConjugeInvalidException {
@@ -57,6 +55,10 @@ public class Familia implements Id{
 
     public List<Dependente> getDependentes() {
         return this.dependentes;
+    }
+
+    public void adicionarPontos(int pontos){
+        this.pontuacao += pontos;
     }
     
 }
