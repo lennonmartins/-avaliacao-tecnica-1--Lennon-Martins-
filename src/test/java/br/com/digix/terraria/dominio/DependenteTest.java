@@ -10,13 +10,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import br.com.digix.terraria.builders.DependenteBuilder;
 import br.com.digix.terraria.dominio.exceptions.DataDeNascimentoInvalid;
+import br.com.digix.terraria.dominio.exceptions.DataNascimentoDependenteInvalid;
 import br.com.digix.terraria.dominio.exceptions.NomeInvalidException;
 
 @SpringBootTest
 public class DependenteTest {
     
     @Test
-    void deve_cria_um_dependente() throws NomeInvalidException, DataDeNascimentoInvalid{
+    void deve_cria_um_dependente() throws NomeInvalidException, DataDeNascimentoInvalid, DataNascimentoDependenteInvalid{
         String nomeEsperado = "Lucas Martins";
         LocalDate dataDeNascimentoEsperada =  LocalDate.of(2010, 1, 5);
 
@@ -27,7 +28,7 @@ public class DependenteTest {
     }
 
     @Test
-    void deve_construir_um_dependente_com_data_de_nascimento() throws NomeInvalidException, DataDeNascimentoInvalid{
+    void deve_construir_um_dependente_com_data_de_nascimento() throws NomeInvalidException, DataDeNascimentoInvalid, DataNascimentoDependenteInvalid{
         String nomeEsperado = "Lucas Martins";
         LocalDate dataDeNascimentoEsperada =  LocalDate.of(2010, 1, 5);
 

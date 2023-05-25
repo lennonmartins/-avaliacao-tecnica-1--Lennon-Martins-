@@ -18,5 +18,4 @@ public class ConjugeBuilder {
     public Conjuge criar() throws NomeInvalidException{
         return new Conjuge(nome);
     }
-
 }

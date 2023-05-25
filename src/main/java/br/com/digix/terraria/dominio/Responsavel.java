@@ -1,17 +1,24 @@
 package br.com.digix.terraria.dominio;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import br.com.digix.terraria.dominio.exceptions.NomeInvalidException;
 
 @Entity
 public class Responsavel extends Pessoa {
     
-    public Responsavel(String nome) throws NomeInvalidException{
+    @OneToOne(cascade=CascadeType.PERSIST)
+    @JoinColumn(name="familia_id")
+    private Familia familia;
+    
+    public Responsavel(String nome, Familia familia) throws NomeInvalidException{
         super(nome);
+        this.familia = familia;
     }
 
-    @Override
     public long getId() {
         return this.id;
     }

@@ -1,4 +1,4 @@
-package br.com.digix.terraria.dominio.utils;
+package br.com.digix.terraria.utils;
 
 import java.util.Comparator;
 

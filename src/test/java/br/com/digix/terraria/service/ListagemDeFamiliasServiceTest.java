@@ -1,18 +1,29 @@
-package br.com.digix.terraria.dominio;
+package br.com.digix.terraria.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import br.com.digix.terraria.builders.FamiliaBuilder;
+import br.com.digix.terraria.dominio.Familia;
 import br.com.digix.terraria.dominio.exceptions.ConjugeInvalidException;
 import br.com.digix.terraria.dominio.exceptions.DependentesInvalidException;
 import br.com.digix.terraria.dominio.exceptions.NomeInvalidException;
 import br.com.digix.terraria.dominio.exceptions.ResponsavelInvalidException;
+import br.com.digix.terraria.repository.FamiliaRepository;
 
 @SpringBootTest
-public class ListagemTest {
+public class ListagemDeFamiliasServiceTest {
+    
+    @Autowired
+    private ICriterios criteriosMapper;
+
+    @Autowired
+    private FamiliaRepository familiaRepository;
+
+    ValidacaoDeCriterioService servico = new ValidacaoDeCriterioService();
     
     @Test
     void deve_retornar_uma_lista_de_familias() throws ResponsavelInvalidException, ConjugeInvalidException, DependentesInvalidException, NomeInvalidException{
@@ -20,7 +31,7 @@ public class ListagemTest {
         Familia familia1 = new FamiliaBuilder().criar();
         Familia familia2 = new FamiliaBuilder().criar();
         
-        Listagem lista = new Listagem();
+        ListagemDeFamiliasService lista = new ListagemDeFamiliasService();
         lista.adicionarFamilia(familia1);
         lista.adicionarFamilia(familia2);
 
@@ -33,7 +44,7 @@ public class ListagemTest {
         int ultimaPosicao = 5;
         int maiorPontuacao = 15; 
         int menorPontuacao = 0;
-        Listagem lista = new Listagem();
+        ListagemDeFamiliasService lista = new ListagemDeFamiliasService();
         lista.adicionarFamilia(new FamiliaBuilder().comPontos(5).criar());
         lista.adicionarFamilia(new FamiliaBuilder().comPontos(10).criar());
         lista.adicionarFamilia(new FamiliaBuilder().comPontos(maiorPontuacao).criar());
@@ -46,6 +57,4 @@ public class ListagemTest {
         assertThat(lista.listarFamilias().get(primeiraPosicao).getPontuacao()).isEqualTo(maiorPontuacao);
         assertThat(lista.listarFamilias().get(ultimaPosicao).getPontuacao()).isEqualTo(menorPontuacao);
     }
-
-
 }

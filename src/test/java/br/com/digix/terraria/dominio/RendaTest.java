@@ -30,6 +30,4 @@ public class RendaTest {
 
         assertThat(renda.getRendaMensal()).isEqualTo(rendaMensalEsperada);
     }
-
-    
 }

@@ -16,6 +16,7 @@ import br.com.digix.terraria.builders.RendaBuilder;
 import br.com.digix.terraria.builders.ResponsavelBuilder;
 import br.com.digix.terraria.dominio.exceptions.ConjugeInvalidException;
 import br.com.digix.terraria.dominio.exceptions.DataDeNascimentoInvalid;
+import br.com.digix.terraria.dominio.exceptions.DataNascimentoDependenteInvalid;
 import br.com.digix.terraria.dominio.exceptions.DependentesInvalidException;
 import br.com.digix.terraria.dominio.exceptions.NomeInvalidException;
 import br.com.digix.terraria.dominio.exceptions.ResponsavelInvalidException;
@@ -26,8 +27,7 @@ public class FamiliaTest {
    
   @Test
   void deve_criar_uma_familia() throws NomeInvalidException, DataDeNascimentoInvalid, ResponsavelInvalidException,
-      ConjugeInvalidException, DependentesInvalidException {
-    int pontuacao = 0;
+      ConjugeInvalidException, DependentesInvalidException, DataNascimentoDependenteInvalid {
     String nomeResponsavelEsperado = "Lennon";
     Responsavel responsavel = new ResponsavelBuilder().comNome(nomeResponsavelEsperado).criar();
     String nomeConjugeEsperado = "Miguel";
@@ -37,7 +37,7 @@ public class FamiliaTest {
     List<Dependente> dependentes = new ArrayList<>();
     dependentes.add(new DependenteBuilder().criar());
 
-    Familia familia = new Familia(conjuge, responsavel, dependentes, rendaMensal, pontuacao);
+    Familia familia = new Familia(conjuge, responsavel, dependentes, rendaMensal);
 
     assertThat(familia.getResponsavel().getNome()).isEqualTo(nomeResponsavelEsperado);
     assertThat(familia.getConjuge().getNome()).isEqualTo(nomeConjugeEsperado);
@@ -47,7 +47,7 @@ public class FamiliaTest {
 
   @Test
   void deve_cadastrar_uma_familia_com_tres_dependetes() throws NomeInvalidException, DataDeNascimentoInvalid,
-      ResponsavelInvalidException, ConjugeInvalidException, DependentesInvalidException {
+      ResponsavelInvalidException, ConjugeInvalidException, DependentesInvalidException, DataNascimentoDependenteInvalid {
     int quantidadeDeDependentesEsperada = 3;
 
     Familia familia = new FamiliaBuilder()

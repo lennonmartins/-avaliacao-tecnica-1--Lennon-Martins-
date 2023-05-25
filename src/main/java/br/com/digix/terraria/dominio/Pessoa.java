@@ -1,16 +1,22 @@
 package br.com.digix.terraria.dominio;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
 import br.com.digix.terraria.dominio.exceptions.NomeInvalidException;
 
-
-public abstract class Pessoa implements Id {
+@MappedSuperclass
+public abstract class Pessoa {
     
     @Column(nullable = false)
     private  String nome;
 
+    @Id
     @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
 
     Pessoa(String nome) throws NomeInvalidException{

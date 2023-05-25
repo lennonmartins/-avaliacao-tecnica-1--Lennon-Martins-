@@ -20,7 +20,7 @@ public class FamiliaBuilder {
     private Renda rendaMensal;
     private int pontuacao;
     
-    public FamiliaBuilder() throws NomeInvalidException {
+    public FamiliaBuilder() throws NomeInvalidException, ResponsavelInvalidException, ConjugeInvalidException, DependentesInvalidException {
         this.conjuge = new ConjugeBuilder().criar();
         this.responsavel = new ResponsavelBuilder().criar();
         this.dependentes = new ArrayList<>();

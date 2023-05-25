@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import br.com.digix.terraria.dominio.Dependente;
 import br.com.digix.terraria.dominio.exceptions.DataDeNascimentoInvalid;
+import br.com.digix.terraria.dominio.exceptions.DataNascimentoDependenteInvalid;
 import br.com.digix.terraria.dominio.exceptions.NomeInvalidException;
 
 public class DependenteBuilder {
@@ -21,7 +22,7 @@ public class DependenteBuilder {
         return this;
     }
 
-    public Dependente criar() throws NomeInvalidException, DataDeNascimentoInvalid{
+    public Dependente criar() throws NomeInvalidException, DataDeNascimentoInvalid, DataNascimentoDependenteInvalid{
         return new Dependente(nomeDependente, dataDeNascimento);
     }
 
