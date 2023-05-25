@@ -3,7 +3,6 @@ package br.com.digix.terraria.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import br.com.digix.terraria.builders.FamiliaBuilder;
@@ -12,16 +11,9 @@ import br.com.digix.terraria.dominio.exceptions.ConjugeInvalidException;
 import br.com.digix.terraria.dominio.exceptions.DependentesInvalidException;
 import br.com.digix.terraria.dominio.exceptions.NomeInvalidException;
 import br.com.digix.terraria.dominio.exceptions.ResponsavelInvalidException;
-import br.com.digix.terraria.repository.FamiliaRepository;
 
 @SpringBootTest
 public class ListagemDeFamiliasServiceTest {
-    
-    @Autowired
-    private ICriterios criteriosMapper;
-
-    @Autowired
-    private FamiliaRepository familiaRepository;
 
     ValidacaoDeCriterioService servico = new ValidacaoDeCriterioService();
     

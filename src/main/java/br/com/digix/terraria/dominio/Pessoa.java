@@ -7,8 +7,14 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 import br.com.digix.terraria.dominio.exceptions.NomeInvalidException;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @MappedSuperclass
+@Getter
 public abstract class Pessoa {
     
     @Column(nullable = false)
@@ -16,7 +22,7 @@ public abstract class Pessoa {
 
     @Id
     @Column(nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected long id;
 
     Pessoa(String nome) throws NomeInvalidException{
@@ -26,9 +32,5 @@ public abstract class Pessoa {
 
     private void validaNome(String nome) throws NomeInvalidException{
         if(nome == null || nome == "") throw new NomeInvalidException();
-    }
-
-    protected String getNome(){
-        return this.nome;
     }
 }

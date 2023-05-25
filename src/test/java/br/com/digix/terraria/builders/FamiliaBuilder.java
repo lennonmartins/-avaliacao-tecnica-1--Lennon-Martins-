@@ -6,7 +6,6 @@ import java.util.List;
 import br.com.digix.terraria.dominio.Conjuge;
 import br.com.digix.terraria.dominio.Dependente;
 import br.com.digix.terraria.dominio.Familia;
-import br.com.digix.terraria.dominio.Renda;
 import br.com.digix.terraria.dominio.Responsavel;
 import br.com.digix.terraria.dominio.exceptions.ConjugeInvalidException;
 import br.com.digix.terraria.dominio.exceptions.DependentesInvalidException;
@@ -17,15 +16,14 @@ public class FamiliaBuilder {
     private Conjuge conjuge;
     private Responsavel responsavel;
     private List<Dependente> dependentes;
-    private Renda rendaMensal;
+    private double rendaMensal;
     private int pontuacao;
     
     public FamiliaBuilder() throws NomeInvalidException, ResponsavelInvalidException, ConjugeInvalidException, DependentesInvalidException {
         this.conjuge = new ConjugeBuilder().criar();
         this.responsavel = new ResponsavelBuilder().criar();
         this.dependentes = new ArrayList<>();
-        this.rendaMensal = new RendaBuilder().criar();
-        this.pontuacao = 0;
+        this.rendaMensal = 900;
     }
 
     public FamiliaBuilder comResponsavel(Responsavel responsavel) {

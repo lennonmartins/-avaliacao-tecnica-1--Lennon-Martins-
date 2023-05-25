@@ -14,12 +14,13 @@ public class CriteriosImplements implements ICriterios {
     @Override
     public void validarSeAtendeCriterios(List<Familia> familias) {
         for (Familia familia : familias) {
+            this.pontos =0;
             int quantidadeDeDependentes = familia.getDependentes().size();
             validarCriterioUm(familia);
             validarCriterioDois(familia);
             validarCriterioTres(familia, quantidadeDeDependentes);
             validarCriterioQuatro(familia, quantidadeDeDependentes);
-            adcionaPontosAFamilia(familia, this.pontos);
+            adcionaPontosAFamilia(familia, pontos);
         }
     }
 
@@ -30,7 +31,7 @@ public class CriteriosImplements implements ICriterios {
     public void validarCriterioUm(Familia familia) {
         int pontos = 5;
         double renadaLimiteMaxima = 900;
-        if (familia.getRendaMensal().getRendaMensal() <= renadaLimiteMaxima)
+        if (familia.getRendaMensal() <= renadaLimiteMaxima)
             this.pontos += pontos;
     }
 
@@ -38,8 +39,8 @@ public class CriteriosImplements implements ICriterios {
         double rendaMaximaLimite = 1500;
         double rendaMinimaLimite = 900;
         int pontos = 3;
-        if (familia.getRendaMensal().getRendaMensal() > rendaMinimaLimite
-                && familia.getRendaMensal().getRendaMensal() <= rendaMaximaLimite)
+        if (familia.getRendaMensal()> rendaMinimaLimite
+                && familia.getRendaMensal() <= rendaMaximaLimite)
             this.pontos += pontos;
     }
 
@@ -53,7 +54,9 @@ public class CriteriosImplements implements ICriterios {
     public void validarCriterioQuatro(Familia familia, int quantidaDeDependentes) {
         int pontos = 2;
         int quantidadeMaximaDeDependentes = 3;
-        if (quantidaDeDependentes < quantidadeMaximaDeDependentes)
+        int quantidadeMinimaDeDependentes = 1;
+        if (quantidaDeDependentes < quantidadeMaximaDeDependentes &&
+        quantidaDeDependentes >= quantidadeMinimaDeDependentes)
             this.pontos += pontos;
     }
 }

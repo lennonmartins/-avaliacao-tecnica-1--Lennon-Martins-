@@ -6,19 +6,15 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.com.digix.terraria.dominio.Familia;
-import br.com.digix.terraria.repository.FamiliaRepository;
+import br.com.digix.terraria.dtos.responses.ListagemResponseDTO;
 import br.com.digix.terraria.utils.Comparador;
 
+@Service
 public class ListagemDeFamiliasService {
     private List<Familia> familias;
-
-    @Autowired
-    private ICriterios criteriosMapper;
-
-    @Autowired
-    private FamiliaRepository familiaRepository;
 
     @Autowired
     private ValidacaoDeCriterioService servico;
@@ -36,18 +32,23 @@ public class ListagemDeFamiliasService {
         return this.familias;
     }
 
-    public void ordernarFamiliasPelaPontuacao() {
-        List<Familia> familias = (List<Familia>) buscarTodas();
-        servico.validarOsCriteriosAtendidos(familias);
-        Collections.sort(this.familias, Comparador.comparador());
+    private ListagemResponseDTO familiaParaFamiliaDaListagem (Familia familia) {
+        return new ListagemResponseDTO(familia.getResponsavel().getNome(), familia.getPontuacao());
     }
 
-    public Collection<Familia> buscarTodas() {
-        return ((Collection<Familia>) familiaRepository.findAll());
+    private Collection<ListagemResponseDTO> ListagemDefamiliaParaListagemDefamiliasResponse(
+            Collection<Familia> familias) {
+        Collection<ListagemResponseDTO> familiasRetornadasDtos = new ArrayList<>();
+        for (Familia familia : familias) {
+            familiasRetornadasDtos.add(this.familiaParaFamiliaDaListagem(familia));
+        }
+        return familiasRetornadasDtos;
     }
 
-    // public Collection<Familia>(){
-
-    // }
-
+    public Collection<ListagemResponseDTO> ordernarFamiliasPelaPontuacao() {
+        List<Familia> familias =  servico.pontuarFamiliaPelosCriteriosAtendidos();
+        Collections.sort(familias, Comparador.comparador());
+        Collection<ListagemResponseDTO> familiasResponse = ListagemDefamiliaParaListagemDefamiliasResponse(familias);
+        return familiasResponse;
+    }
 }

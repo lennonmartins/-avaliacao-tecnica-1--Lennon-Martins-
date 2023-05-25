@@ -21,7 +21,6 @@ public class Comparador {
                     return 0;
                 }
         }
-
     };
     return compararPontos;
 }

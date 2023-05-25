@@ -11,11 +11,21 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.springframework.lang.Nullable;
+
 import br.com.digix.terraria.dominio.exceptions.ConjugeInvalidException;
 import br.com.digix.terraria.dominio.exceptions.DependentesInvalidException;
 import br.com.digix.terraria.dominio.exceptions.ResponsavelInvalidException;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Getter
 public class Familia  {
     @Id
     @Column(nullable = false)
@@ -25,35 +35,32 @@ public class Familia  {
     @Column(nullable = true)
     private int pontuacao;
 
-    @OneToOne(mappedBy = "familia", cascade = CascadeType.PERSIST)
+    @Column(nullable = true)
+    private double rendaMensal;
+
+    @OneToOne(mappedBy = "familia", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Conjuge conjuge;
 
-    @OneToOne(mappedBy = "familia")
+    @OneToOne(mappedBy = "familia",  cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Responsavel responsavel;
 
-    @OneToMany(mappedBy = "familia", cascade ={CascadeType.REMOVE, CascadeType.PERSIST})
-    private List<Dependente> dependentes;
+    @OneToMany(mappedBy = "familia", cascade ={CascadeType.REMOVE, CascadeType.ALL})
+    @Nullable
+    private List<Dependente> dependentes; 
 
-    @OneToOne(mappedBy = "familia")
-    private Renda rendaMensal;
-
-    // public Familia(Conjuge conjuge, Responsavel responsavel, List<Dependente> dependentes, Renda renda, int pontuacao) throws ResponsavelInvalidException, ConjugeInvalidException, DependentesInvalidException {
-    //     validaResponsavel(responsavel);
-    //     validaConjuge(conjuge);
-    //     this.conjuge = conjuge;
-    //     this.responsavel = responsavel;
-    //     this.dependentes = dependentes;
-    //     this.rendaMensal = renda;
-    //     this.pontuacao = pontuacao;
-    // }
-
-    public Familia(Conjuge conjuge, Responsavel responsavel, List<Dependente> dependentes, Renda renda) throws ResponsavelInvalidException, ConjugeInvalidException, DependentesInvalidException {
+    public Familia(Conjuge conjuge, Responsavel responsavel, List<Dependente> dependentes, double renda, int pontuacao) throws ResponsavelInvalidException, ConjugeInvalidException, DependentesInvalidException {
         validaResponsavel(responsavel);
         validaConjuge(conjuge);
         this.conjuge = conjuge;
         this.responsavel = responsavel;
         this.dependentes = dependentes;
         this.rendaMensal = renda;
+        this.pontuacao = pontuacao;
+        this.responsavel.setFamilia(this);
+        this.conjuge.setFamilia(this);
+        for (Dependente dependente : dependentes) {
+            dependente.setFamilia(this);
+        }
     }
 
     private void validaConjuge(Conjuge conjuge) throws ConjugeInvalidException {
@@ -64,33 +71,7 @@ public class Familia  {
         if(responsavel == null) throw new ResponsavelInvalidException();
     }
 
-    public long getId() {
-      return this.id;
-    }
-
-    public Responsavel getResponsavel() {
-        return this.responsavel;
-    }
-
-    public Conjuge getConjuge() {
-        return this.conjuge;
-    }
-
-    public Renda getRendaMensal() {
-        return this.rendaMensal;
-    }
-
-    public int getPontuacao() {
-        return this.pontuacao;
-    }
-
-    public List<Dependente> getDependentes() {
-        return this.dependentes;
-    }
-
     public void setPontos(int pontos) {
         this.pontuacao += pontos;
     }
-
-    
 }

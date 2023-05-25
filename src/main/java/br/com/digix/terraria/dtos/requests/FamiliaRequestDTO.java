@@ -1,4 +1,4 @@
-package br.com.digix.terraria.dto;
+package br.com.digix.terraria.dtos.requests;
 
 import java.util.Collection;
 
@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FamiliaRequestDTO {
-    private Long idDoConjuge;
-    private Long idDoResponsavel;
+    private long idDoConjuge;
+    private long idDoResponsavel;
     private Collection<Long> dependentesIds;
-    private Long renda;
+    private double renda;
 }

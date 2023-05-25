@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import br.com.digix.terraria.dominio.Familia;
-import br.com.digix.terraria.dto.FamiliaRequestDTO;
-import br.com.digix.terraria.dto.FamiliaResponseDTO;
-import br.com.digix.terraria.mappers.FamiliaMapper;
-import br.com.digix.terraria.repository.FamiliaRepository;
+import br.com.digix.terraria.dominio.exceptions.ConjugeInvalidException;
+import br.com.digix.terraria.dominio.exceptions.DependentesInvalidException;
+import br.com.digix.terraria.dominio.exceptions.ResponsavelInvalidException;
+import br.com.digix.terraria.dtos.requests.FamiliaRequestDTO;
+import br.com.digix.terraria.dtos.responses.FamiliaResponseDTO;
 import br.com.digix.terraria.service.FamiliaService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 @RestController
@@ -29,22 +29,8 @@ public class FamiliaController {
     @Operation(summary = "Cadastra uma nova família")
     @ApiResponse(responseCode = "201")
     @PostMapping(consumes = {"application/json"})
-    public ResponseEntity<FamiliaResponseDTO> cadastrarFamilia(@RequestBody FamiliaRequestDTO novaFamilia){
+    public ResponseEntity<FamiliaResponseDTO> cadastrarFamilia(@RequestBody FamiliaRequestDTO novaFamilia) throws ResponsavelInvalidException, ConjugeInvalidException, DependentesInvalidException{
         return ResponseEntity.status(HttpStatus.CREATED).body(familiaService.cadastraFamilia(novaFamilia));
-        // return ResponseEntity.status(HttpStatus.CREATED).body(familiaRepository.save(novaFamilia));
     }
-
-
-    // @Operation(summary = "Criar um novo pokemon")
-    // @ApiResponse(responseCode = "201")
-    // @PostMapping(consumes = { "application/json" })
-    // public ResponseEntity<PokemonResponseDTO> criarPokemon(@RequestBody PokemonRequestDTO novoPokemon)
-    //     throws NivelPokemonInvalidoException, FelicidadeInvalidaException, LimiteDeTipoPokemonException,
-    //     LimiteDeAtaquePokemonException {
-    //   return ResponseEntity
-    //       .status(HttpStatus.CREATED)
-    //       .body(pokemonService.criar(novoPokemon));
-    // }
-  
 
 }

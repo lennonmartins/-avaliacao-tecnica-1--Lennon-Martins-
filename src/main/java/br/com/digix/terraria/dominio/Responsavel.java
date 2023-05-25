@@ -6,7 +6,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import br.com.digix.terraria.dominio.exceptions.NomeInvalidException;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity
 public class Responsavel extends Pessoa {
     
@@ -14,13 +24,8 @@ public class Responsavel extends Pessoa {
     @JoinColumn(name="familia_id")
     private Familia familia;
     
-    public Responsavel(String nome, Familia familia) throws NomeInvalidException{
+    public Responsavel(String nome) throws NomeInvalidException{
         super(nome);
-        this.familia = familia;
-    }
-
-    public long getId() {
-        return this.id;
     }
 
 }

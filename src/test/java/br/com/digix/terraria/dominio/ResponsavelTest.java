@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import br.com.digix.terraria.builders.FamiliaBuilder;
 import br.com.digix.terraria.builders.ResponsavelBuilder;
 import br.com.digix.terraria.dominio.exceptions.ConjugeInvalidException;
 import br.com.digix.terraria.dominio.exceptions.DependentesInvalidException;
@@ -19,9 +18,8 @@ public class ResponsavelTest {
     @Test
     void  deve_construir_um_responsavel() throws NomeInvalidException, ResponsavelInvalidException, ConjugeInvalidException, DependentesInvalidException{
         String nomeEsperado = "Lennon";
-        Familia familia = new FamiliaBuilder().criar();
         
-        Responsavel responsavel = new Responsavel(nomeEsperado, familia);
+        Responsavel responsavel = new Responsavel(nomeEsperado);
         
         assertEquals(nomeEsperado, responsavel.getNome());
     }

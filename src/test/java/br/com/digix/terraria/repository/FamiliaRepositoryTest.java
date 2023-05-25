@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import br.com.digix.terraria.builders.FamiliaBuilder;
+import br.com.digix.terraria.builders.ResponsavelBuilder;
 import br.com.digix.terraria.dominio.Dependente;
 import br.com.digix.terraria.dominio.Familia;
+import br.com.digix.terraria.dominio.Responsavel;
 import br.com.digix.terraria.dominio.exceptions.ConjugeInvalidException;
 import br.com.digix.terraria.dominio.exceptions.DataDeNascimentoInvalid;
 import br.com.digix.terraria.dominio.exceptions.DataNascimentoDependenteInvalid;
@@ -24,6 +26,12 @@ public class FamiliaRepositoryTest {
     @Autowired
     private FamiliaRepository familiaRepository;
 
+    @Autowired
+    private ResponsavelRepository responsavelRepository;
+
+    @Autowired
+    private DependenteRepository dependenteRepository;
+
     @Test
     void deve_registra_umafamilia() throws ResponsavelInvalidException, ConjugeInvalidException, DependentesInvalidException, NomeInvalidException{
         Familia familia = new FamiliaBuilder().criar();
@@ -36,12 +44,18 @@ public class FamiliaRepositoryTest {
     @Test
     void deve_retornar_uma_lista_de_familias() throws ResponsavelInvalidException, ConjugeInvalidException, DependentesInvalidException, NomeInvalidException, DataDeNascimentoInvalid, DataNascimentoDependenteInvalid{
         int quantidadeDeFamiliasEsperada = 2;
-        Familia familiaUm = new FamiliaBuilder().comDependente(new Dependente("Esther", LocalDate.of(2010, 7, 19))).criar();
+        Responsavel responsavel = new ResponsavelBuilder().criar();
+        responsavelRepository.save(responsavel);
+        Dependente dependente = new Dependente("Esther", LocalDate.of(2010, 7, 19));
+        dependenteRepository.save(dependente);
+        Familia familiaUm = new FamiliaBuilder().comResponsavel(responsavel).comDependente(dependente).criar();
         familiaRepository.save(familiaUm);
-        Familia familiaDois = new FamiliaBuilder().criar();
+        Responsavel responsavelDois = new ResponsavelBuilder().criar();
+        responsavelRepository.save(responsavelDois);
+        Familia familiaDois = new FamiliaBuilder().comResponsavel(responsavelDois).criar();
         familiaRepository.save(familiaDois);
 
-        Iterable<Familia> quantidadeDeFamlias =  familiaRepository.findAll();
+        long quantidadeDeFamlias =  familiaRepository.count();
 
         assertThat(quantidadeDeFamlias).isEqualTo(quantidadeDeFamiliasEsperada);
     }
