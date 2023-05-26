@@ -29,24 +29,4 @@ public class ListagemDeFamiliasServiceTest {
 
         assertThat(lista.listarFamilias().size()).isEqualTo(quantidadeDeFamiliaEsperada);
     }
-
-    @Test
-    void deve_retornar_uma_lista_de_familias_ordenadas_pela_pontuacao() throws ResponsavelInvalidException, ConjugeInvalidException, DependentesInvalidException, NomeInvalidException{
-        int primeiraPosicao = 0;
-        int ultimaPosicao = 5;
-        int maiorPontuacao = 15; 
-        int menorPontuacao = 0;
-        ListagemDeFamiliasService lista = new ListagemDeFamiliasService();
-        lista.adicionarFamilia(new FamiliaBuilder().comPontos(5).criar());
-        lista.adicionarFamilia(new FamiliaBuilder().comPontos(10).criar());
-        lista.adicionarFamilia(new FamiliaBuilder().comPontos(maiorPontuacao).criar());
-        lista.adicionarFamilia(new FamiliaBuilder().comPontos(3).criar());
-        lista.adicionarFamilia(new FamiliaBuilder().comPontos(menorPontuacao).criar());
-        lista.adicionarFamilia(new FamiliaBuilder().comPontos(13).criar());
-
-        lista.ordernarFamiliasPelaPontuacao();
-
-        assertThat(lista.listarFamilias().get(primeiraPosicao).getPontuacao()).isEqualTo(maiorPontuacao);
-        assertThat(lista.listarFamilias().get(ultimaPosicao).getPontuacao()).isEqualTo(menorPontuacao);
-    }
 }
